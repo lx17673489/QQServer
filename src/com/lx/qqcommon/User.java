@@ -1,4 +1,4 @@
-package com.lx.qqserver.common;/*
+package com.lx.qqcommon;/*
  *@title
  *@description
  *@author 梁湘
@@ -31,5 +31,13 @@ public class User implements Serializable {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", pwd='" + pwd + '\'' +
+                '}';
     }
 }
