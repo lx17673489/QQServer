@@ -25,11 +25,14 @@ public class QQServer {
         new QQServer();
     }
     private ServerSocket serverSocket;
-    private HashMap<String,String> verifiedUser;
-    private List<ServerConnetClientThread> onlineUsers = new ArrayList<>();
-    public QQServer(){
+    private static HashMap<String,String> verifiedUser;
+    static {
         verifiedUser = new HashMap<>();
         verifiedUser.put("111","123456");
+        verifiedUser.put("222","123456");
+        verifiedUser.put("333","123456");
+    }
+    public QQServer(){
         try {
             System.out.println("服务端正在9999端口监听");
             serverSocket = new ServerSocket(9999);
@@ -39,9 +42,9 @@ public class QQServer {
                 ObjectOutputStream oos = null;
                 User user = (User)ois.readObject();
                 if(verifiedUser.get(user.getUserId()) != null && verifiedUser.get(user.getUserId()).equals(user.getPwd())){
-                    ServerConnetClientThread serverConnetClientThread = new ServerConnetClientThread(socket,user.getUserId(),onlineUsers);
+                    ServerConnetClientThread serverConnetClientThread = new ServerConnetClientThread(socket,user.getUserId());
                     serverConnetClientThread.start();
-                    onlineUsers.add(serverConnetClientThread);
+                    ManageServerConnetClientThread.put(user.getUserId(),serverConnetClientThread);
                     //登录成功
                     System.out.println("用户"+user.getUserId()+"登录成功");
                     Message msg = new Message(); //创建登录成功的消息

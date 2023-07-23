@@ -7,6 +7,7 @@ package com.lx.qqserver.service;/*
  */
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class ManageServerConnetClientThread {
     private static HashMap<String,ServerConnetClientThread> map = new HashMap<>(); //<key:userId>
@@ -16,5 +17,12 @@ public class ManageServerConnetClientThread {
     }
     public static ServerConnetClientThread get(String userId){
         return map.get(userId);
+    }
+    public static void remove(String userId){
+        map.remove(userId);
+    }
+
+    public static Set<String> getUser(){
+        return map.keySet();
     }
 }
